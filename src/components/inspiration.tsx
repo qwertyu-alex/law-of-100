@@ -180,6 +180,140 @@ const inspiration = [
     quote: "Work hard in silence, let success be your noise.",
     author: "Frank Ocean",
   },
+  {
+    quote:
+      "Success is stumbling from failure to failure with no loss of enthusiasm.",
+    author: "Winston Churchill",
+  },
+  {
+    quote:
+      "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.",
+    author: "Vince Lombardi",
+  },
+  {
+    quote:
+      "Hardships often prepare ordinary people for an extraordinary destiny.",
+    author: "C.S. Lewis",
+  },
+  {
+    quote: "Every champion was once a contender that refused to give up.",
+    author: "Rocky Balboa",
+  },
+  {
+    quote:
+      "I hated every minute of training, but I said, 'Don't quit. Suffer now and live the rest of your life as a champion.'",
+    author: "Muhammad Ali",
+  },
+  {
+    quote: "Grit is living life like it's a marathon, not a sprint.",
+    author: "Angela Duckworth",
+  },
+  {
+    quote: "Tough times don’t last. Tough people do.",
+    author: "Robert H. Schuller",
+  },
+  {
+    quote:
+      "A river cuts through rock not because of its power, but because of its persistence.",
+    author: "James N. Watkins",
+  },
+  {
+    quote:
+      "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+    author: "Winston Churchill",
+  },
+  {
+    quote: "It's not whether you get knocked down, it's whether you get up.",
+    author: "Vince Lombardi",
+  },
+  {
+    quote: "Pain is temporary. Quitting lasts forever.",
+    author: "Lance Armstrong",
+  },
+  {
+    quote:
+      "If you want to be the best, you have to do things that other people aren't willing to do.",
+    author: "Michael Phelps",
+  },
+  {
+    quote: "Great things come from hard work and perseverance. No excuses.",
+    author: "Kobe Bryant",
+  },
+  {
+    quote:
+      "I’m convinced that about half of what separates successful entrepreneurs from non-successful ones is pure perseverance.",
+    author: "Steve Jobs",
+  },
+  {
+    quote: "Fall seven times, stand up eight.",
+    author: "Japanese Proverb",
+  },
+  {
+    quote: "You may have to fight a battle more than once to win it.",
+    author: "Margaret Thatcher",
+  },
+  {
+    quote:
+      "Perseverance is not a long race; it is many short races one after another.",
+    author: "Walter Elliot",
+  },
+  {
+    quote:
+      "Do not pray for an easy life, pray for the strength to endure a difficult one.",
+    author: "Bruce Lee",
+  },
+  {
+    quote: "If you get tired, learn to rest, not to quit.",
+    author: "Banksy",
+  },
+  {
+    quote:
+      "Courage doesn’t always roar. Sometimes it’s the quiet voice at the end of the day saying, ‘I will try again tomorrow.’",
+    author: "Mary Anne Radmacher",
+  },
+  {
+    quote:
+      "Success is achieved and maintained by those who try and keep trying.",
+    author: "W. Clement Stone",
+  },
+  {
+    quote:
+      "Be miserable. Or motivate yourself. Whatever has to be done, it’s always your choice.",
+    author: "Wayne Dyer",
+  },
+  {
+    quote: "There is no elevator to success, you have to take the stairs.",
+    author: "Zig Ziglar",
+  },
+  {
+    quote: "You can have results or excuses. Not both.",
+    author: "Arnold Schwarzenegger",
+  },
+  {
+    quote: "A quitter never wins and a winner never quits.",
+    author: "Napoleon Hill",
+  },
+  {
+    quote: "Work hard in silence, let your success be the noise.",
+    author: "Frank Ocean",
+  },
+  {
+    quote: "The best way out is always through.",
+    author: "Robert Frost",
+  },
+  {
+    quote: "The secret of getting ahead is getting started.",
+    author: "Mark Twain",
+  },
+  {
+    quote: "Obsessed is just a word the lazy use to describe the dedicated.",
+    author: "Russell Warren",
+  },
+  {
+    quote:
+      "Sometimes, it’s not about who has more talent. It’s about who’s hungrier.",
+    author: "Unknown",
+  },
 ];
 
 export function Inspiration() {
