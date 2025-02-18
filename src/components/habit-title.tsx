@@ -1,18 +1,17 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { updateHabitAtom } from "@/atoms";
 import { Input } from "@/components/ui/input";
-import type { Habit } from "@/lib/types";
+import { Habit } from "@/lib/types";
+import { useSetAtom } from "jotai";
+import { useEffect, useRef, useState } from "react";
 
-interface HabitTitleProps {
-  habit: Habit;
-  onUpdateHabit: (habit: Habit) => void;
-}
-
-export function HabitTitle({ habit, onUpdateHabit }: HabitTitleProps) {
+export function HabitTitle(props: { habit: Habit }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedName, setEditedName] = useState(habit.name);
+  const [editedName, setEditedName] = useState(props.habit.name);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const onUpdateHabit = useSetAtom(updateHabitAtom);
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -30,9 +29,9 @@ export function HabitTitle({ habit, onUpdateHabit }: HabitTitleProps) {
 
   const handleNameSubmit = () => {
     if (editedName.trim() !== "") {
-      onUpdateHabit({ ...habit, name: editedName.trim() });
+      onUpdateHabit({ ...props.habit, name: editedName.trim() });
     } else {
-      setEditedName(habit.name);
+      setEditedName(props.habit.name);
     }
     setIsEditing(false);
   };
@@ -41,7 +40,7 @@ export function HabitTitle({ habit, onUpdateHabit }: HabitTitleProps) {
     if (e.key === "Enter") {
       handleNameSubmit();
     } else if (e.key === "Escape") {
-      setEditedName(habit.name);
+      setEditedName(props.habit.name);
       setIsEditing(false);
     }
   };
@@ -60,7 +59,7 @@ export function HabitTitle({ habit, onUpdateHabit }: HabitTitleProps) {
       className="text-2xl font-bold mb-4 cursor-pointer"
       onDoubleClick={handleDoubleClick}
     >
-      {habit.name}
+      {props.habit.name}
     </h2>
   );
 }

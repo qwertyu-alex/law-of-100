@@ -2,21 +2,22 @@
 
 import { HabitProgress } from "@/components/habit-progress";
 import { HabitTitle } from "@/components/habit-title";
-import type { Habit } from "@/lib/types";
-import { Inspiration } from "./inspiration";
 import { HabitCompletionButtons } from "./habit-completion-buttons";
+import { Inspiration } from "./inspiration";
 
-interface HabitTrackerProps {
-  habit: Habit;
-  onUpdateHabit: (habit: Habit) => void;
-}
+import { getSelectedHabit } from "@/atoms";
+import { useAtomValue } from "jotai";
 
-export function HabitTracker({ habit, onUpdateHabit }: HabitTrackerProps) {
+export function HabitTracker() {
+  const selectedHabit = useAtomValue(getSelectedHabit);
+
+  if (!selectedHabit) return null;
+
   return (
     <div className="mt-6">
-      <HabitTitle habit={habit} onUpdateHabit={onUpdateHabit} />
-      <HabitProgress habit={habit} onUpdateHabit={onUpdateHabit} />
-      <HabitCompletionButtons habit={habit} />
+      <HabitTitle habit={selectedHabit} />
+      <HabitProgress habit={selectedHabit} />
+      <HabitCompletionButtons habit={selectedHabit} />
       <Inspiration />
     </div>
   );

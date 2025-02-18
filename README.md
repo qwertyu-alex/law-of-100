@@ -12,6 +12,9 @@ Most people never get there. Don’t be most people. Hit 100. Then decide if it�
 
 A simple app to help you stay consistent and reach **100 reps** in any skill or habit. Whether you're writing, coding, selling, or creating, this app keeps you accountable and ensures you don't quit too early.
 
+### 📖 Inspiration
+
+This concept is inspired by Noah Kagan's book *Million Dollar Weekend*
 
 ## 📦 Installation
 

@@ -7,20 +7,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import type { Habit } from "@/lib/types";
+import { Habit } from "@/lib/types";
 
-interface HabitCompletionButtonsProps {
-  habit: Habit;
-}
-
-export function HabitCompletionButtons({ habit }: HabitCompletionButtonsProps) {
+export function HabitCompletionButtons(props: { habit: Habit }) {
   const getButtonStyles = (index: number) => {
     if (index === 99) {
-      return index >= habit.progress
+      return index >= props.habit.progress
         ? "bg-white text-primary-text"
         : "bg-yellow-400 text-black";
     }
-    if (index >= habit.progress) {
+    if (index >= props.habit.progress) {
       return "bg-white text-primary-text";
     }
     return `bg-black text-white`;
@@ -43,7 +39,7 @@ export function HabitCompletionButtons({ habit }: HabitCompletionButtonsProps) {
   return (
     <div className="flex flex-wrap gap-2">
       <TooltipProvider>
-        {Array.from({ length: Math.max(100, habit.progress) }, (_, i) => (
+        {Array.from({ length: Math.max(100, props.habit.progress) }, (_, i) => (
           <Tooltip key={i}>
             <TooltipTrigger asChild>
               <Button
@@ -53,12 +49,12 @@ export function HabitCompletionButtons({ habit }: HabitCompletionButtonsProps) {
                 {getButtonContent(i)}
               </Button>
             </TooltipTrigger>
-            {i < habit.completions.length && (
+            {i < props.habit.completions.length && (
               <TooltipContent>
-                <p>{formatDate(habit.completions[i].date)}</p>
-                {habit.completions[i].comment && (
+                <p>{formatDate(props.habit.completions[i].date)}</p>
+                {props.habit.completions[i].comment && (
                   <p className="mt-1">
-                    Comment: {habit.completions[i].comment}
+                    Comment: {props.habit.completions[i].comment}
                   </p>
                 )}
               </TooltipContent>

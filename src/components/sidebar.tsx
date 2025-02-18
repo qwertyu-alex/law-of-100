@@ -1,70 +1,72 @@
 import type React from "react";
-
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { addHabitAtom } from "@/atoms";
+import githubIcon from "@/assets/githubicon.svg";
+import { HabitList } from "@/components/habit-list";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { Habit } from "@/lib/types";
-import { Plus } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useSetAtom } from "jotai";
+import { Menu } from "lucide-react";
+import { useState } from "react";
+import { useHabits } from "../atoms";
+import { Habit } from "@/lib/types";
 
-interface SidebarProps {
-  habits: Habit[];
-  selectedHabit: Habit | null;
-  onSelectHabit: (habit: Habit) => void;
-  onAddHabit: (name: string) => void;
-  onUpdateHabit: (habit: Habit) => void;
-}
-
-export function Sidebar({
-  habits,
-  selectedHabit,
-  onSelectHabit,
-  onAddHabit,
-  onUpdateHabit,
-}: SidebarProps) {
+function SidebarContent() {
   const [newHabitName, setNewHabitName] = useState("");
+  const addHabit = useSetAtom(addHabitAtom);
+  const [habits, setHabits] = useHabits();
 
   const handleAddHabit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newHabitName.trim()) {
-      onAddHabit(newHabitName.trim());
+      addHabit(newHabitName.trim());
       setNewHabitName("");
     }
   };
 
-  const handleIncrementHabit = (habit: Habit, e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click event
-    const updatedHabit = {
-      ...habit,
-      progress: habit.progress + 1,
-      completions: [...habit.completions, { date: new Date().toISOString() }],
-    };
-    onUpdateHabit(updatedHabit);
+  const handleExport = () => {
+    const habitData = JSON.stringify(habits, null, 2);
+    const blob = new Blob([habitData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "habits-export.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
-  const renderMinimap = (habit: Habit) => {
-    const totalCircles = 100;
-    const completedCircles = habit.progress;
-    const circleSize = 8; // Size of each circle in pixels
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-    return (
-      <div className="flex flex-wrap gap-[1px] mt-2 w-full">
-        {Array.from({ length: totalCircles }, (_, index) => (
-          <div
-            key={index}
-            className={`rounded-full ${
-              index < completedCircles ? "bg-primary" : "bg-gray-200"
-            }`}
-            style={{ width: `${circleSize}px`, height: `${circleSize}px` }}
-          ></div>
-        ))}
-      </div>
-    );
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const importedHabits = JSON.parse(e.target?.result as string);
+        const newHabits = importedHabits.map((importedHabit: Habit) => ({
+          ...importedHabit,
+          id: crypto.randomUUID(),
+        }));
+        setHabits([...habits, ...newHabits]);
+      } catch (error) {
+        console.error("Error importing habits:", error);
+        alert("Error importing habits. Please check the file format.");
+      }
+    };
+    reader.readAsText(file);
   };
 
   return (
-    <div className="bg-gray-100 p-4 w-64">
+    <div className="bg-gray-100 p-4 h-full flex flex-col">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Law of 100</h2>
       </div>
@@ -80,48 +82,67 @@ export function Sidebar({
           Add Habit
         </Button>
       </form>
-      <ScrollArea className="h-[calc(100vh-12rem)]">
-        {habits.map((habit) => (
-          <Card
-            key={habit.id}
-            className={`mb-4 cursor-pointer ${
-              selectedHabit?.id === habit.id ? "border-primary" : ""
-            }`}
-            onClick={() => onSelectHabit(habit)}
-          >
-            <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
-              <div>
-                <CardTitle className="text-sm font-medium">
-                  {habit.name}
-                </CardTitle>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Progress: {habit.progress}/100
-                </p>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={(e) => handleIncrementHabit(habit, e)}
-                className="h-8 w-8"
+      <HabitList />
+
+      <div className="flex flex-col gap-2 pt-2 flex-shrink-0">
+        <div className="flex flex-row gap-2">
+          <Button onClick={handleExport} variant="outline" className="w-full">
+            Export
+          </Button>
+
+          <Button variant="outline" className="w-full" asChild>
+            <label style={{ cursor: "pointer" }}>
+              Import
+              <input
+                type="file"
+                accept=".json"
+                onChange={handleImport}
+                style={{ display: "none" }}
+              />
+            </label>
+          </Button>
+        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <a
+                href="https://github.com/qwertyu-alex/law-of-100"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center hover:opacity-70 transition-opacity"
               >
-                <Plus className="h-4 w-4" />
-                <span className="sr-only">Increment {habit.name}</span>
-              </Button>
-            </CardHeader>
-            <CardContent>
-              {renderMinimap(habit)}
-              <p className="text-xs text-muted-foreground mt-2">
-                Last completed:{" "}
-                {habit.completions.length > 0
-                  ? new Date(
-                      habit.completions[habit.completions.length - 1].date
-                    ).toLocaleDateString()
-                  : "Never"}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </ScrollArea>
+                <img src={githubIcon} alt="GitHub" className="h-8 w-8" />
+              </a>
+            </TooltipTrigger>
+            <TooltipContent sideOffset={5}>
+              <p>See source code</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
     </div>
+  );
+}
+
+export default function Sidebar() {
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block w-64 shrink-0 h-full overflow-y-auto">
+        <SidebarContent />
+      </div>
+
+      {/* Mobile Drawer */}
+      <Sheet>
+        <SheetTrigger asChild className="md:hidden fixed right-4 top-4 z-50">
+          <Button variant="outline" size="icon" className="rounded-full">
+            <Menu className="h-4 w-4" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-80 p-0">
+          <SidebarContent />
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }
