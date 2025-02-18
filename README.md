@@ -1,51 +1,41 @@
-# React + TypeScript + Vite
+# Law of 100
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What is law of 100
 
-Currently, two official plugins are available:
+Most people quit way too early. They try something a few times, don’t see results, and give up. That’s a mistake. If you commit to doing something 100 times—whether it’s launching products, making sales calls, or posting content—you’ll get better, guaranteed.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The magic happens after the reps. The first 10 feel awkward. The next 20 show progress. By 50, you’re onto something. By 100, you’re in a different league.
 
-## Expanding the ESLint configuration
+Most people never get there. Don’t be most people. Hit 100. Then decide if it’s worth quitting.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Law of 100 Tracker
 
-- Configure the top-level `parserOptions` property like this:
+A simple app to help you stay consistent and reach **100 reps** in any skill or habit. Whether you're writing, coding, selling, or creating, this app keeps you accountable and ensures you don't quit too early.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+## 📦 Installation
+
+Clone the repository and install dependencies:
+
+```bash
+npm install
+yarn install
+pnpm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 🏃‍♂️ Usage
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+Run the app locally:
+
+```bash
+npm run dev
+yarn run dev
+pnpm run dev
 ```
-# law-of-100
+
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## 📌 Contributing
+
+Want to improve the app? PRs are welcome! Feel free to fork and submit your changes.
