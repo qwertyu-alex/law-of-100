@@ -3,6 +3,7 @@
 import { getSelectedHabit } from "@/atoms";
 import { HabitTracker } from "@/components/habit-tracker";
 import { useAtomValue } from "jotai";
+import { NoHabit } from "./components/no-habit";
 import Sidebar from "./components/sidebar";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
           <Sidebar />
         </div>
         <main className="flex-1 p-4 md:p-6">
+          {!selectedHabit && <NoHabit />}
           {selectedHabit && <HabitTracker />}
         </main>
       </div>

@@ -33,6 +33,7 @@ export const addHabitAtom = atom(null, (get, set, name: string) => {
     completions: [],
   };
   set(habitsAtom, [...habits, newHabit]);
+  set(selectedHabitIdAtom, newHabit.id);
 });
 
 export const updateHabitAtom = atom(null, (get, set, updatedHabit: Habit) => {
